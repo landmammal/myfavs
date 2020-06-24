@@ -8,6 +8,10 @@ var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// setting view engine for HTML files
+app.set('view engine', 'ejs')
+
+
 // DATABASE simulation
 var favoriteShows = [
   {
@@ -33,12 +37,12 @@ var favoriteShows = [
 
 // Welcome
 app.get("/", function (req, res) {
-  return res.send("welcome to my favorites API");
+  return res.render('home.ejs')
 });
 
 // GETS shows
 app.get("/shows", function (req, res) {
-  return res.json(favoriteShows);
+  return res.render('index.ejs')
 });
 
 // GETS a show
@@ -47,11 +51,16 @@ app.get("/show/:id", function (req, res) {
   for (let i = 0; i < favoriteShows.length; i++) {
     const show = favoriteShows[i];
     if (show.id === showId) {
-      return res.json(show);
+      return res.render('show.ejs');
     }
   }
-  res.send("That show is not on my list");
+  res.render("show.ejs");
 });
+
+// Serving The shows Form
+app.get('/form', function(req,res){
+  res.render("showsForm.ejs")
+})
 
 // POST show
 app.post("/show", function (req, res) {
