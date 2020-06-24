@@ -1,1 +1,9 @@
 <h1>Shows</h1>
+
+<% for (let i = 0; i < favoriteShows.length; i++) { %>
+    <% const show = favoriteShows[i]; %>
+    <h2>ID: <%= show.id %></h2>
+    <h2>Show Title:  <%= show.name %></h2>
+    <h2>Chow Category: <%= show.category %></h2>
+    <hr>
+<% } %>    

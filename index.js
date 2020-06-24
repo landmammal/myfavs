@@ -37,12 +37,12 @@ var favoriteShows = [
 
 // Welcome
 app.get("/", function (req, res) {
-  return res.render('home.ejs')
+  return res.render('home.ejs', {user: "Roger"})
 });
 
 // GETS shows
 app.get("/shows", function (req, res) {
-  return res.render('index.ejs')
+  return res.render('index.ejs', {favoriteShows: favoriteShows})
 });
 
 // GETS a show
@@ -51,10 +51,10 @@ app.get("/show/:id", function (req, res) {
   for (let i = 0; i < favoriteShows.length; i++) {
     const show = favoriteShows[i];
     if (show.id === showId) {
-      return res.render('show.ejs');
+      return res.render('show.ejs', {show: show, message: ""});
     }
   }
-  res.render("show.ejs");
+  res.render("show.ejs", {message: "Show not found"});
 });
 
 // Serving The shows Form
@@ -65,11 +65,12 @@ app.get('/form', function(req,res){
 // POST show
 app.post("/show", function (req, res) {
   var show = req.body;
-  console.log(req.body);
-
+  console.log(show);
+  show.id = Math.round(Math.random() * 100000 )
+  console.log(show);
   favoriteShows.push(show);
 
-  return res.send("Successfully added show");
+  return res.redirect("/shows");
 });
 
 app.listen(PORT, function () {

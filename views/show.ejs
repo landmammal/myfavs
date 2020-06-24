@@ -1,1 +1,9 @@
 <h1>Show Details</h1>
+<hr>
+<% if(message === '') { %>
+    <h2><%= show.name %></h1>
+    <h2><%= show.category %></h2>
+
+<% }else { %>
+    <h2><%= message  %></h2>
+<% } %>
